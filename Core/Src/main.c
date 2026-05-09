@@ -1,3 +1,22 @@
+/**
+ * UART Multichannel Sniffer
+ *
+ * This application sniffs UART communication on multiple channels and forwards
+ * all received data to a single output UART (USART2).
+ *
+ * RX Channels (in order of initialization):
+ * - UART4:  RX on PA1  (Channel 0)
+ * - UART5:  RX on PD2  (Channel 1)
+ * - USART1: RX on PA10 (Channel 2)
+ * - USART3: RX on PC5  (Channel 3)
+ *
+ * TX Output:
+ * - USART2: TX on PA2
+ *
+ * All RX pins are configured with pull-ups to prevent floating input noise.
+ * TX pins on input channels are set as inputs to avoid interference.
+ */
+
 #include "stm32l4xx_ll_crs.h"
 #include "stm32l4xx_ll_rcc.h"
 #include "stm32l4xx_ll_bus.h"
