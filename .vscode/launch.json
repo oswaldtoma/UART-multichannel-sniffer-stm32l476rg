@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug STM32L476",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32l4x.cfg"
+      ],
+      "executable": "${workspaceFolder}/build/Debug/UART-multichannel-sniffer.elf",
+      "device": "STM32L476RG"
+    }
+  ]
+}
