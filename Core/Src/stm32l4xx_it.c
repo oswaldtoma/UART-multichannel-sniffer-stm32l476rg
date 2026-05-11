@@ -6,6 +6,23 @@
 
 extern void ForwardToOutput(uint8_t byte);
 
+static inline void ClearUsartErrors(USART_TypeDef *USARTx)
+{
+    if (LL_USART_IsActiveFlag_FE(USARTx))
+    {
+        LL_USART_ClearFlag_FE(USARTx);
+    }
+    if (LL_USART_IsActiveFlag_NE(USARTx))
+    {
+        LL_USART_ClearFlag_NE(USARTx);
+    }
+    if (LL_USART_IsActiveFlag_ORE(USARTx))
+    {
+        (void)LL_USART_ReceiveData8(USARTx);
+        LL_USART_ClearFlag_ORE(USARTx);
+    }
+}
+
 void NMI_Handler(void)
 {
     while (1)
@@ -59,6 +76,7 @@ void SysTick_Handler(void)
 
 void UART4_IRQHandler(void)
 {
+    ClearUsartErrors(UART4);
     if (LL_USART_IsActiveFlag_RXNE(UART4))
     {
         uint8_t data = LL_USART_ReceiveData8(UART4);
@@ -68,6 +86,7 @@ void UART4_IRQHandler(void)
 
 void UART5_IRQHandler(void)
 {
+    ClearUsartErrors(UART5);
     if (LL_USART_IsActiveFlag_RXNE(UART5))
     {
         uint8_t data = LL_USART_ReceiveData8(UART5);
@@ -77,6 +96,7 @@ void UART5_IRQHandler(void)
 
 void USART1_IRQHandler(void)
 {
+    ClearUsartErrors(USART1);
     if (LL_USART_IsActiveFlag_RXNE(USART1))
     {
         uint8_t data = LL_USART_ReceiveData8(USART1);
@@ -86,6 +106,7 @@ void USART1_IRQHandler(void)
 
 void USART3_IRQHandler(void)
 {
+    ClearUsartErrors(USART3);
     if (LL_USART_IsActiveFlag_RXNE(USART3))
     {
         uint8_t data = LL_USART_ReceiveData8(USART3);
